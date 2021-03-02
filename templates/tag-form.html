@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block title %}New tag{% endblock %} {% block
+content %}
+
+<h1>New Tag</h1>
+
+<form action="/tags/new" method="POST">
+  <div class="form-group">
+    <label for="name">Tag Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      placeholder="Dog tag"
+    />
+  </div>
+  <div class="form-group">
+    <label for="descr">Tag description</label>
+    <textarea
+      type="form-control"
+      id="descr"
+      class="form-control"
+      name="descr"
+    ></textarea>
+  </div>
+  <label>Tag color</label>
+  <div class="container">
+    <div class="row">
+    {% for color in colors %}
+    <div class="input-group mb-3 col-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text {{color.bg}} {{color.text}}">
+          <input
+            type="radio"
+            name="color"
+            value="{{color.color_id}}"
+            aria-label="Radio button for color selection"
+            {% if color.name == "White" %}
+            checked
+            {% endif %}
+          />
+        </div>
+      </div>
+      <div class="form-control" aria-label="name of the color">
+        {{color.name}}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

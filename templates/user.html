@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block title %}{{ user.first }} {{ user.last }}{%
+endblock %} {% block content %}
+
+<div class="row">
+  {% if user.image_url %}
+  <div class="card" style="width: 25rem">
+    <img
+      src="{{ user.image_url }}"
+      class="card-img-top"
+      alt="{{ user.first }}_{{ user.last }}"
+    />
+    {% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{user.first}} {{user.last}}</h5>
+      <p class="card-text">
+        My friends just call me {{ user.first }}. If you'd like to see the rest
+        of my family,
+        <a
+          href="/users/family/{{ user.last }}"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Click here to see the rest of the family"
+          >click here</a
+        >
+      </p>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <form>
+          <button
+            formaction="/users/edit/{{ user.id }}"
+            class="btn btn-warning"
+            formmethod="GET"
+          >
+            Edit
+          </button>
+          <button
+            formaction="/users/delete/{{ user.id }}"
+            class="btn btn-danger"
+            formmethod="POST"
+          >
+            Delete
+          </button>
+        </form>
+      </div>
+      <a href="/users" class="btn btn-primary" style="margin: 5px"
+        >Back to list</a
+      >
+    </div>
+  </div>
+  <div class="card" style="width: 18rem; margin-left: 10px">
+    <div class="card-header text-white bg-primary font-weight-bold h4">Posts</div>
+    <ul class="list-group list-group-flush">
+      {% for post in user.posts %}
+      <a class="list-group-item" href="/posts/{{post.post_id}}"
+        >{{post.title}}</a
+      >
+      {% endfor %}
+    </ul>
+    <div class="btn-group card-body" role="group" aria-label="options">
+      <form>
+        <button
+          formaction="/users/{{user.id}}/posts/new"
+          class="btn btn-primary"
+          formmethod="GET"
+        >
+          Add post
+        </button>
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
+{% endblock %}

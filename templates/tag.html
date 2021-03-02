@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %}{{tag.tag_name}} Tag{% endblock %} {%
+block content %}
+
+<div class="jumbotron {{tag.color.bg}} {{tag.color.text}}">
+  <div class="container">
+    <h1 class="display-4">{{tag.tag_name}} Tag</h1>
+    <p class="lead">{{tag.tag_descr}}</p>
+  </div>
+</div>
+<div class="btn-group">
+  <a href="/tags" class="btn btn-link">Back to tags</a>
+  <a href="/tags/{{tag.tag_id}}/edit" class="btn btn-warning">Edit Tag</a>
+</div>
+{% endblock %}

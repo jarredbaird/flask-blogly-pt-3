@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block title %}Post from {{user.first}}
+{{user.last}}{% endblock %} {% block content %}
+
+<div class="card">
+  <div class="card-header h3">{{ post.title }}</div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{post.content}}</p>
+      <footer class="blockquote-footer">{{user.first}} {{user.last}}</footer>
+    </blockquote>
+  </div>
+  <div class="card-body">
+    <span
+      >Tags: {% for tag in tags %}
+      <span class="badge {{tag.color.badge}}">{{tag.tag_name}}</span> {% endfor
+      %}
+    </span>
+  </div>
+  <div class="btn-group card-body" role="group" aria-label="options">
+    <form>
+      <button
+        formaction="/posts/{{post.post_id}}/edit"
+        class="btn btn-warning"
+        formmethod="GET"
+      >
+        Edit
+      </button>
+      <button
+        formaction="/posts/{{post.post_id}}/delete"
+        class="btn btn-danger"
+        formmethod="POST"
+      >
+        Delete
+      </button>
+    </form>
+  </div>
+</div>
+<a href="/users/{{user.id}}" class="btn btn-primary" style="margin: 5px"
+  >Back to user</a
+>
+
+{% endblock %}

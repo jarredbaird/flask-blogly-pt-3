@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block title %}Edit tag{% endblock %} {% block
+content %}
+
+<h1>Edit {{tag.tag_name}} Tag</h1>
+
+<form action="/tags/{{tag.tag_id}}/edit" method="POST">
+  <div class="form-group">
+    <label for="name">Tag Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      placeholder="Dog tag"
+      value="{{tag.tag_name}}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="descr">Tag description</label>
+    <textarea
+      type="form-control"
+      id="descr"
+      class="form-control"
+      name="descr"
+      placeholder="{{tag.tag_descr}}"
+    >
+{{tag.tag_descr}}</textarea
+    >
+  </div>
+  <label>Tag color</label>
+  <div class="container">
+    <div class="row">
+      {% for color in colors %}
+      <div class="input-group mb-3 col-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text {{color.bg}} {{color.text}}">
+            <input type="radio" value="{{color.color_id}}" name="color"
+            aria-label="Radio button for color selection" {% if color.color_id
+            == tag.tag_color %} checked {% endif %} />
+          </div>
+        </div>
+        <div class="form-control" aria-label="name of the color">
+          {{color.name}} {% if color.color_id == tag.tag_color %}
+          <span class="badge badge-pill badge-success">current</span>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="btn-group">
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/tags/{{tag.tag_id}}" class="btn btn-warning">Cancel</a>
+  </div>
+</form>
+{% endblock %}
